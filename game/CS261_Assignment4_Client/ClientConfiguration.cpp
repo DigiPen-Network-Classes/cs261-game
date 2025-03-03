@@ -13,11 +13,15 @@
 ClientConfiguration ClientConfiguration::BuildConfigurationFromArguments(int argc, char** argv)
 {
     ClientConfiguration configuration;
+    if (argc != 4) 
+    {
+        throw std::invalid_argument("usage: program http://localhost:3100 username password");
+    }
 
     // argv[0] is the executable file name and path
-    configuration.user_service = (argc > 1) ? std::string(argv[1]) : "http://localhost:3100";
-    configuration.username = (argc > 2) ? std::string(argv[2]) : "test_user";
-    configuration.password = (argc > 3) ? std::string(argv[3]) : "test_password";
+    configuration.user_service = std::string(argv[1]);
+    configuration.username = std::string(argv[2]);
+    configuration.password = std::string(argv[3]);
 
     return configuration;
 }

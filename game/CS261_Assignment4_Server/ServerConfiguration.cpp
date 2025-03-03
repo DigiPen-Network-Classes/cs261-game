@@ -12,11 +12,14 @@
 
 ServerConfiguration ServerConfiguration::BuildConfigurationFromArguments(int argc, char** argv)
 {
+    if (argc != 3)
+    {
+        throw std::invalid_argument("Usage: program game_port shared_secret");
+    }
     ServerConfiguration configuration;
-
-    // argv[0] is the executable file name and path
-    configuration.port = (argc > 1) ? atoi(argv[1]) : 4200;
-    configuration.secret = (argc > 2) ? std::string(argv[2]) : "CS261S20";
+    
+    configuration.port = atoi(argv[1]);
+    configuration.secret = std::string(argv[2]);
 
     return configuration;
 }

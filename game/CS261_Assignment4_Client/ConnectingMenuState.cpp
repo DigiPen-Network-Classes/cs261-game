@@ -148,13 +148,14 @@ void ConnectingMenuState::Draw()
 
 void ConnectingMenuState::SendConnectionRequest()
 {
+	// what we're sending to the Game Server
 	Packet packet = Packet(network_buffer_, kNetwork_Buffer_Size);
+	// TODO what values need to be sent to the game server, so the game server can build its own token?
+	// (these are some of the values that your User Service required to build the token (i.e. configuration_.token)
+	// TODO replace with correct WriteString() calls:
+	PacketSerializer::WriteString(packet, "foo");
+	PacketSerializer::WriteString(packet, "bar");
 
-	PacketSerializer::WriteString(packet, configuration_.username);
-	PacketSerializer::WriteString(packet, configuration_.avatar);
-	PacketSerializer::WriteString(packet, game_type_);
-	PacketSerializer::WriteString(packet, configuration_.token);
-	
 	// send the scenario-specific challenge message to the server, hoping for a response
 	const auto res = send(connecting_socket_, packet.GetRoot(), packet.GetUsedSpace(), 0);
 	if ((res == SOCKET_ERROR) &&

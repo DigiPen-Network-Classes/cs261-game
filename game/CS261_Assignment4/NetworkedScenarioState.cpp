@@ -33,3 +33,18 @@ void NetworkedScenarioState::Update()
 		return;
 	}
 }
+
+int NetworkedScenarioState::GetSocketPort() const 
+{
+	if (socket_ == INVALID_SOCKET)
+	{
+		return INVALID_SOCKET;
+	}
+	sockaddr_in localAddr;
+	int addrLen = sizeof(localAddr);
+	if (getsockname(socket_, reinterpret_cast<sockaddr*>(&localAddr), &addrLen) == SOCKET_ERROR) 
+	{
+		return INVALID_SOCKET;
+	}
+	return ntohs(localAddr.sin_port);
+}

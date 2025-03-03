@@ -49,7 +49,16 @@ void ShowConsole()
 /// <returns>0 if successful, non-zero for process errors</returns>
 int main(const int argc, char** argv)
 {
-	auto configuration = ServerConfiguration::BuildConfigurationFromArguments(argc, argv);
+	ServerConfiguration configuration;
+	try
+	{
+		configuration = ServerConfiguration::BuildConfigurationFromArguments(argc, argv);
+	} 
+	catch(std::exception& ex) 
+	{
+		std::cerr << "Error: " << ex.what() << std::endl;
+		return EXIT_FAILURE;
+	}
 
 	// initialize WinSock
 	WSADATA wsa_data;

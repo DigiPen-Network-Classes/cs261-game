@@ -29,4 +29,5 @@ public:
 protected:
     SOCKET socket_;
     bool is_host_;
+    int GetSocketPort() const;
 };

@@ -103,33 +103,33 @@ void HostingMenuState::Update()
 	{
 		std::cout << "Received a message from a potential connection, acknowledging..." << std::endl;
 
-		// read the client data out of the packet
 		Packet packet = Packet(network_buffer_, res);
-		std::string client_username, client_avatar, client_game_type, client_token;
-		PacketSerializer::ReadString(packet, client_username);
-		PacketSerializer::ReadString(packet, client_avatar);
-		PacketSerializer::ReadString(packet, client_game_type);
-		PacketSerializer::ReadString(packet, client_token);
+		// TODO: read the client data out of the packet
+		// TODO: use ReadString to initialize strings that were sent from the client
+		std::string foo, bar;
+		PacketSerializer::ReadString(packet, foo);
+		PacketSerializer::ReadString(packet, bar);
 
-		std::string calculated_token;
 		//TODO: build calculatedToken using the logic defined in Assignment 4
+		// calculated_token = x + y + z 
+		std::string calculated_token = "TODO build token here!";
+
+		// encode the token so we can compare it vs. the client's token
 		std::string encoded_token = DigestBuilder::BuildDigest(calculated_token);
 
-		if (encoded_token == client_token)
-		{
-			std::cout << "Token matched!  Continuing to game..." << std::endl;
-			SendConnectionSuccess(other_address);
-		}
-		else if (game_type_ == client_game_type)
-		{
-			std::cout << "Token mismatched for same game type: calculated '" << encoded_token << "', received '" << client_token << "'.  Rejecting..." << std::endl;
-			SendConnectionFailure(other_address, "BadToken");
-		}
-		else
-		{
-			std::cout << "Game type mismatch: expected '" << game_type_ << "', received '" << client_game_type << "'.  Rejecting..." << std::endl;
-			SendConnectionFailure(other_address, "BadGameType");
-		}
+		// TODO: fill in the logic
+		// if encoded_token == the token the client was given,
+		//		std::cout << "Token matched!  Continuing to game..." << std::endl;
+		//		SendConnectionSuccess(other_address);
+		//
+		// else, check the game_type expected vs. sent, if they are not equal, then give a useful error message:
+		//		std::cout << "Game type mismatch: expected '" << game_type_ << "', received '" << client_game_type << "'.  Rejecting..." << std::endl;
+		//		SendConnectionFailure(other_address, "BadGameType");
+		// 
+		// else, the token is bad, give a useful error message:
+		//		std::cout << "Token mismatched for same game type: calculated '" << encoded_token << "', received '" << client_token << "'.  Rejecting..." << std::endl;
+		//		SendConnectionFailure(other_address, "BadToken");
+		//
 	}
 }
 
