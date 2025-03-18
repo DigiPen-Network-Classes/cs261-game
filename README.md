@@ -104,7 +104,7 @@ There are two new configuration values you'll need to add to the .env file
 
 ```env
 SHARED_SECRET=cs261secret
-GAME_PORT=4100
+GAME_PORT=4200
 ```
 
 Your node.js User Service should read those values from the environment, as we have done for other configurable settings 
